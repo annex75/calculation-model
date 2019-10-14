@@ -1,0 +1,24 @@
+{
+  "name": "annex-75-calculation-tool",
+  "version": "0.2.0",
+  "description": "todo: description",
+  "main": "main.js",
+  "dependencies": {
+    "@types/node": "^8.10.54",
+    "minimist": "^1.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/annex75/calculation-model.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/annex75/calculation-model/issues"
+  },
+  "homepage": "https://github.com/annex75/calculation-model#readme"
+}
