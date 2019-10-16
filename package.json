@@ -5,6 +5,7 @@
   "main": "main.js",
   "dependencies": {
     "@types/node": "^8.10.54",
+    "ajv": "^6.10.2",
     "minimist": "^1.2.0"
   },
   "devDependencies": {},

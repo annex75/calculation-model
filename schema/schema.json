@@ -1,0 +1,4 @@
+{ 
+    "$id": "https://github.com/annex75/calculation-model/tree/dev/schema/schema.json",
+    "$schema": "http://json-schema.org/schema#"
+}
