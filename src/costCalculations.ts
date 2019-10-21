@@ -1,4 +1,6 @@
 
 export function calcBuildingHeatingNeed(building: any) {
-    let heatingNeed: number = building.heatingNeed;
+    let specificHeatingNeed = 15.8;
+    let heatingNeed: number = building.gfa;
+    return heatingNeed;
 }

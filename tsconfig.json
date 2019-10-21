@@ -4,10 +4,13 @@
         "module": "commonjs",
         "sourceMap": true,
         "outDir": "build",
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "strictNullChecks": true
     },
     "include": [
-        "src/test.ts",
-        "src/main.ts"
+        "src/classes.ts",
+        "src/costCalculations.ts",
+        "src/main.ts",
+        "src/auxiliaryFunctions.ts"
     ]
 }
