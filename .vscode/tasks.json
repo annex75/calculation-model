@@ -6,6 +6,11 @@
         {
             "type": "typescript",
             "tsconfig": "tsconfig.json",
+            "options": {
+				"shell": {
+					"executable": "powershell.exe"
+                }
+			},
             "problemMatcher": [
                 "$tsc"
             ],

@@ -28,7 +28,7 @@
                 "--timeout",
                 "999999",
                 "--colors",
-                "${workspaceFolder}/modules/**/*-spec.ts",
+                "${workspaceFolder}/src/**/*.spec.ts",
             ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
