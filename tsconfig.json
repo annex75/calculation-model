@@ -8,9 +8,9 @@
         "strictNullChecks": true
     },
     "include": [
+        "src/auxiliaryFunctions.ts",
         "src/classes.ts",
         "src/costCalculations.ts",
-        "src/main.ts",
-        "src/auxiliaryFunctions.ts"
+        "src/main.ts"
     ]
 }

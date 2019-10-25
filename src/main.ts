@@ -9,20 +9,22 @@ import {
 import {
     _parseFile,
     _test
-} from './auxiliaryFunctions'
+} from './auxiliaryFunctions';
 
 // handles input arguments
 import * as minimist from 'minimist';
 
 // read arguments and call main
-interface IArguments { file: "string" }
+export interface IArguments { file: string }
 const argv = minimist(process.argv.slice(1));
+console.log("hello world");
 main(argv);
 
-function main(argv: IArguments) {
+export function main(argv: IArguments) {
     let jsonData = _parseFile(argv.file);
-    // for each scenario, get the heating need of each building
-    // how to store this data?
+    // convert json data to the calcdata format we control
     let calcData = new CalcData(jsonData);
+    // for each scenario, get the heating need of each building
     _test(calcData);
+    return true;
 }

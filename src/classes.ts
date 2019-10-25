@@ -63,7 +63,7 @@ export class CalcData {
         inData.buildings.forEach(building=> {
             this.buildings.push(Object.assign(new Building(),building));
         });
-        
+
         inData.energyCarriers.forEach(carrier=> {
             this.energyCarriers.push(Object.assign(new EnergyCarrier(),carrier));
         });
@@ -97,9 +97,9 @@ export class CalcData {
             }
 
             let thisRenovationPkg:RenovationPackage|undefined;
-            this.renovationPackages.forEach(package=>{
-                if (scenario.renovationPackage === package.id) {
-                    thisRenovationPkg = package;
+            this.renovationPackages.forEach(pkg=>{
+                if (scenario.renovationPackage === pkg.id) {
+                    thisRenovationPkg = pkg;
                 }
             })
             if (thisRenovationPkg == null) {
