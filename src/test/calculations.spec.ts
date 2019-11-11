@@ -6,5 +6,6 @@ import 'mocha';
 
 // functions/classes to test
 import {
+    _performCalculations,
     calcBuildingHeatingNeed
-} from "../costCalculations"
+} from "../calculations"

@@ -5,6 +5,11 @@ import {
     CalcData
 } from './classes';
 
+// import calculation functions
+import {
+    _performCalculations
+} from './calculations';
+
 // import auxiliary functions
 import {
     _parseFile,
@@ -22,9 +27,13 @@ main(argv);
 function main(argv: IArguments) {
     let jsonData = _parseFile(argv.file);
     // convert json data to the calcdata format we control
-    let calcData = new CalcData(jsonData);
+    const calcData:CalcData = new CalcData(jsonData);
+    
     // todo: for each scenario, get the heating need of each building
 
-    _test(calcData);
+    let resData:CalcData = _performCalculations(calcData);
+    console.log(calcData.resultData);
+    console.log(resData.resultData);
+    _test(resData);
     return true;
 }

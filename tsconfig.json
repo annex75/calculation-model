@@ -10,7 +10,7 @@
     "include": [
         "src/auxiliaryFunctions.ts",
         "src/classes.ts",
-        "src/costCalculations.ts",
+        "src/calculations.ts",
         "src/main.ts"
     ]
 }

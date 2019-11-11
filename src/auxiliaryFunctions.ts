@@ -20,9 +20,10 @@ export function _parseFile(filePath: string) {
 
 export function _test(data: CalcData) {
     data.buildings.forEach(building=>{
-        console.log(building.id);
+        console.log(building.heatingNeed);
     });
     data.energySystems.forEach(sys=>{
         console.log(sys.energyCarrier.primaryEnergyFactor);
-    })
+    });
+    console.log(data.resultData);
 }
