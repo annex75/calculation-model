@@ -31,9 +31,10 @@ function main(argv: IArguments) {
     
     // todo: for each scenario, get the heating need of each building
 
-    let resData:CalcData = _performCalculations(calcData);
+    const resData:CalcData = _performCalculations(calcData);
     console.log(calcData.resultData);
     console.log(resData.resultData);
     _test(resData);
+    
     return true;
 }

@@ -3,7 +3,13 @@ import * as uuid from 'uuid/v1';
 import { 
     
 } from "./calculations";
-import { timingSafeEqual } from 'crypto';
+
+/* interface defintions */
+
+// defines a dictionary with string keys and numeric values
+export interface IDictNumeric {
+    [index: string]: number;
+}
 
 /* class definitions */
 export class Project {
@@ -18,7 +24,7 @@ export class Project {
 export class Building {
     id:string;
     gfa:number;
-    heatingNeed:Map<string,number>;
+    heatingNeed:IDictNumeric;
 }
 
 export class RenovationPackage {
@@ -188,5 +194,5 @@ export class CalcData {
 }
 
 export class ResultData {
-    specificHeatingNeed:Map<string,number>;
+    specificHeatingNeed:IDictNumeric = {};
 }

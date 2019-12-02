@@ -12,5 +12,6 @@
         "src/classes.ts",
         "src/calculations.ts",
         "src/main.ts"
-    ]
+    ],
+    "lib": ["es2017"]
 }

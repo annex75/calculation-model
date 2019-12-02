@@ -25,5 +25,5 @@ export function _test(data: CalcData) {
     data.energySystems.forEach(sys=>{
         console.log(sys.energyCarrier.primaryEnergyFactor);
     });
-    console.log(data.resultData);
+    console.log(JSON.stringify(data.resultData));
 }
