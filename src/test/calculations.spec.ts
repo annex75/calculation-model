@@ -1,10 +1,9 @@
-// unit testing
-import {
-    expect
-} from 'chai';
-import 'mocha';
-
 // functions/classes to test
 import {
-    _performCalculations,
+    performCalculations,
 } from "../calculations"
+import { not } from "ramda";
+
+test('empty', () => {
+    
+});

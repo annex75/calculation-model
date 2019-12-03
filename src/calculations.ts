@@ -1,65 +1,75 @@
 import { IDictNumeric } from "./classes";
 
 import {
-    CalcData, RenovationPackage, Building, ResultData
+    CalcData, RenovationPackage, Building, ResultData, Scenario
 } from "./classes";
 
 // lenses
 import * as R from 'ramda';
 
-export function _performCalculations(calcData: CalcData) {
-
-    const calcBuildingHeatingNeed = (building: Building) => {
-        let gfa: number = building.gfa;
-        let heatingNeeds: IDictNumeric = {};
-        for (let scenario of calcData.scenarios) {
-            let renPkg: RenovationPackage = scenario.renovationPackage;
-            let specHeatNeed: number = renPkg.specificHeatingNeed;
-            let heatNeed: number = specHeatNeed*gfa;
-            let id: string = scenario.id;
-            heatingNeeds[id] = heatNeed;
-            console.log(id, heatNeed, heatingNeeds[id]);
-        }
-        building.heatingNeed = heatingNeeds;    
-        console.log(JSON.stringify(building));
-        return building;
-    }
-    
-    const calcSpecificHeatingNeed = (buildings: Building[]) => {
-        let res:ResultData = new ResultData();
-        let heatingNeeds:IDictNumeric = {};
-
-        let gfa:number = 0;
-
-        for (let building of buildings) {
-            gfa += building.gfa;
-            for (const [scenario, heatingNeed] of Object.entries(building.heatingNeed)) {
-                let old: number|undefined = heatingNeeds[scenario];
-                if (old) {
-                    heatingNeeds[scenario] += heatingNeed;    
-                } else {
-                    heatingNeeds[scenario] = heatingNeed;
-                }    
-            }
-        }
-        for (const [scenario, heatingNeed] of Object.entries(heatingNeeds)) {
-            res.specificHeatingNeed[scenario] = heatingNeed/gfa;
-        }
-        return res;
-    }
-
+/* public functions */
+export function performCalculations(calcData: CalcData): CalcData {
+    /* lenses */
     const buildingLens = R.lensProp('buildings');
-    const resultLens = R.lensProp('resultData');
+    const scenarioLens = R.lensProp('scenarios');
+    const resultLens = R.lensPath(['resultData']);
+    const specificHeatingNeedLens = R.lensPath(['specificHeatingNeed']);
+    const result0specificHeatingNeedLens = <R.Lens>R.pipe(specificHeatingNeedLens);
 
-    const calc = R.pipe(
-        R.over(buildingLens, R.map(calcBuildingHeatingNeed)),
-        R.chain(
-            R.set(resultLens),
-            R.pipe(R.view(buildingLens), calcSpecificHeatingNeed)
-        )
+    /* function call logic */
+    const doCalcBuildingHeatingNeed = R.chain(
+        R.over(buildingLens),
+        R.pipe(R.view(scenarioLens), R.curry(_calcBuildingHeatingNeed), R.map)
+    );
+    
+    const doCalcSpecificHeatingNeed = R.chain(
+        R.set(result0specificHeatingNeedLens),
+        R.pipe(R.view(buildingLens), _calcSpecificHeatingNeed)
+    );
+
+    /* perform function calls */
+    const doCalc = R.pipe(
+        doCalcBuildingHeatingNeed,
+        doCalcSpecificHeatingNeed        
     )
-
-    const newData:CalcData = calc(calcData);
-
+    const newData:CalcData = doCalc(calcData) as CalcData;
     return newData;
+}
+
+/* private functions */
+function _calcBuildingHeatingNeed(scenarios: Scenario[], building: Building){
+    let gfa = building.gfa;
+    let heatingNeeds: IDictNumeric = {};
+    for (let scenario of scenarios) {
+        let renPkg = scenario.renovationPackage;
+        let specHeatNeed = renPkg.specificHeatingNeed;
+        let heatNeed = specHeatNeed*gfa;
+        let id = scenario.id;
+        heatingNeeds[id] = heatNeed;
+        console.log(id, heatNeed, heatingNeeds[id]);
+    }
+    building.heatingNeed = heatingNeeds;
+    return building;
+}
+
+function _calcSpecificHeatingNeed(buildings: Building[]) {
+    let heatingNeeds:IDictNumeric = {};
+    let specificHeatingNeeds:IDictNumeric = {};
+    let totalGfa = 0;
+
+    for (let building of buildings) {
+        totalGfa += building.gfa;
+        for (const [scenario, heatingNeed] of Object.entries(building.heatingNeed)) {
+            let old: number|undefined = heatingNeeds[scenario];
+            if (old) {
+                heatingNeeds[scenario] += heatingNeed;    
+            } else {
+                heatingNeeds[scenario] = heatingNeed;
+            }    
+        }
+    }
+    for (const [scenario, heatingNeed] of Object.entries(heatingNeeds)) {
+        specificHeatingNeeds[scenario] = heatingNeed/totalGfa;
+    }
+    return specificHeatingNeeds;
 }

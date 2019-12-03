@@ -1,13 +1,11 @@
 // class definitions
 import {
-    Building,
-    RenovationPackage,
     CalcData
 } from './classes';
 
 // import calculation functions
 import {
-    _performCalculations
+    performCalculations
 } from './calculations';
 
 // import auxiliary functions
@@ -27,14 +25,8 @@ main(argv);
 function main(argv: IArguments) {
     let jsonData = _parseFile(argv.file);
     // convert json data to the calcdata format we control
-    const calcData:CalcData = new CalcData(jsonData);
-    
-    // todo: for each scenario, get the heating need of each building
-
-    const resData:CalcData = _performCalculations(calcData);
-    console.log(calcData.resultData);
-    console.log(resData.resultData);
+    const calcData = new CalcData(jsonData);
+    const resData = performCalculations(calcData);
     _test(resData);
-    
     return true;
 }

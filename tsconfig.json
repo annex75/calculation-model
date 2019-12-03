@@ -5,7 +5,13 @@
         "sourceMap": true,
         "outDir": "build",
         "resolveJsonModule": true,
-        "strictNullChecks": true
+        "strictNullChecks": true,
+        "baseUrl": "./",
+        "paths" : {
+            "ramda": [
+                "node_modules/@types/ramda/index"
+            ]
+            }
     },
     "include": [
         "src/auxiliaryFunctions.ts",
@@ -13,5 +19,6 @@
         "src/calculations.ts",
         "src/main.ts"
     ],
+    "exclude": ["node_modules","**/*.spec.ts"],
     "lib": ["es2017"]
 }

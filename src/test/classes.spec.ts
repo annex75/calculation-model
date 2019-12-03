@@ -1,9 +1,3 @@
-// unit testing
-import {
-    expect
-} from 'chai';
-import 'mocha';
-
 // functions/classes to test
 import { 
     Building,
@@ -13,4 +7,8 @@ import {
     Scenario,
     CalcData
 } from "../classes";
+
+test('empty', () => {
+
+});
 
