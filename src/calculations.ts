@@ -14,7 +14,7 @@ export function performCalculations(calcData: CalcData): CalcData {
     const scenarioLens = R.lensProp('scenarios');
     const resultLens = R.lensPath(['resultData']);
     const specificHeatingNeedLens = R.lensPath(['specificHeatingNeed']);
-    const result0specificHeatingNeedLens = <R.Lens>R.pipe(specificHeatingNeedLens);
+    const result0specificHeatingNeedLens = <R.Lens>R.compose(resultLens,specificHeatingNeedLens);
 
     /* function call logic */
     const doCalcBuildingHeatingNeed = R.chain(
@@ -46,7 +46,6 @@ function _calcBuildingHeatingNeed(scenarios: Scenario[], building: Building){
         let heatNeed = specHeatNeed*gfa;
         let id = scenario.id;
         heatingNeeds[id] = heatNeed;
-        console.log(id, heatNeed, heatingNeeds[id]);
     }
     building.heatingNeed = heatingNeeds;
     return building;

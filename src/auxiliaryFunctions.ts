@@ -9,7 +9,7 @@ import * as Ajv from 'ajv';
 import * as schema from "../schema/schema.json" // todo: currently validates everything
 
 // reads a file from a supplied path, checking if it is valid json according to schema/schema.json
-export function _parseFile(filePath: string) {
+export function parseFile(filePath: string) {
     let fileContents = fs.readFileSync(filePath, 'utf-8');
     let validator = new Ajv();
     if (!validator.validate(schema,fileContents))
@@ -26,4 +26,9 @@ export function _test(data: CalcData) {
         console.log(sys.energyCarrier.primaryEnergyFactor);
     });
     console.log(JSON.stringify(data.resultData));
+}
+
+export function getTestFile(fileName:string) {
+    let cwd = process.cwd();
+    return `${cwd}\\src\\test\\testData\\${fileName}`;
 }

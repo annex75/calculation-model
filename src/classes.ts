@@ -12,22 +12,18 @@ export interface IDictNumeric {
 }
 
 /* class definitions */
-export class Project {
+export interface Project {
     id:string;
     gfa:number;
-    constructor(id: string, gfa:number) {
-        this.id = id;
-        this.gfa = gfa;
-    }
 }
 
-export class Building {
+export interface Building {
     id:string;
     gfa:number;
     heatingNeed:IDictNumeric;
 }
 
-export class RenovationPackage {
+export interface RenovationPackage {
     id:string;
     specificHeatingNeed:number;
     specificCost:number;
@@ -35,37 +31,25 @@ export class RenovationPackage {
     specificEmbodiedEmissions:number;
 }
 
-export class EnergyCarrier {
+export interface EnergyCarrier {
     id:string;
     primaryEnergyFactor:number;
     emissionFactor:number;
 }
 
-export class EnergySystem {
+export interface EnergySystem {
     id:string;
     category:string;
     key:string;
     lifeLength:number;
     energyCarrier:EnergyCarrier;
-    constructor(id:string,category:string,key:string,lifeLength:number,energyCarrier:EnergyCarrier) {
-        this.id = id;
-        this.category = category;
-        this.key = key;
-        this.lifeLength = lifeLength;
-        this.energyCarrier = energyCarrier;
-    }
 }
 
-export class Scenario {
+export interface Scenario {
     id:string;
     renovationPackage:RenovationPackage;
     energySystem:EnergySystem;
     specificHeatingNeed:number;
-    constructor(id:string,renovationPackage:RenovationPackage,energySystem:EnergySystem) {
-        this.id=id;
-        this.renovationPackage=renovationPackage;
-        this.energySystem=energySystem;
-    }
 }
 
 /* CalcData structure:
@@ -137,18 +121,17 @@ export class CalcData {
     constructor(inData: any) {
         let totalGfa = 0;
 
-        inData.buildings.forEach(building=> {
-            let b:Building = Object.assign(new Building(),building);
-            totalGfa += b.gfa;
-            this.buildings.push(b);
+        inData.buildings.forEach((building:Building) => {
+            totalGfa += building.gfa;
+            this.buildings.push(building);
         });
 
-        inData.energyCarriers.forEach(carrier=> {
-            this.energyCarriers.push(Object.assign(new EnergyCarrier(),carrier));
+        inData.energyCarriers.forEach((carrier:EnergyCarrier)=> {
+            this.energyCarriers.push(carrier);
         });
 
-        inData.renovationPackages.forEach(pkg=> {
-            this.renovationPackages.push(Object.assign(new RenovationPackage(),pkg));
+        inData.renovationPackages.forEach((pkg:RenovationPackage) => {
+            this.renovationPackages.push(pkg);
         });
 
         inData.energySystems.forEach(sys=> {
@@ -159,9 +142,10 @@ export class CalcData {
                 }
             })
             if (thisCarrier == null) {
-                throw "energy carrier is undefined: " + sys.energyCarrier;
+                throw Error(`energy carrier is undefined: ${sys.energyCarrier}`);
             }
-            this.energySystems.push(new EnergySystem(sys.id,sys.category,sys.key,sys.lifeLength,thisCarrier));
+            sys.energyCarrier = thisCarrier;
+            this.energySystems.push(sys);
         });
 
         inData.scenarios.forEach(scenario=> {
@@ -174,6 +158,7 @@ export class CalcData {
             if (thisEnergySys == null) {
                 throw "energy system is undefined: " + scenario.energySystem;
             }
+            scenario.energySystem = thisEnergySys;
 
             let thisRenovationPkg:RenovationPackage|undefined;
             this.renovationPackages.forEach(pkg=>{
@@ -184,15 +169,16 @@ export class CalcData {
             if (thisRenovationPkg == null) {
                 throw "renovation package is undefined: " + scenario.renovationPackage;
             }
+            scenario.renovationPackage = thisRenovationPkg;
 
-            this.scenarios.push(new Scenario(scenario.id,thisRenovationPkg,thisEnergySys));
+            this.scenarios.push(scenario);
         });
         
-        this.project = new Project(inData.project,totalGfa);
-        this.resultData = new ResultData();
+        this.project = {id: inData.project, gfa: totalGfa};
+        this.resultData = {specificHeatingNeed: {}};
     }
 }
 
-export class ResultData {
-    specificHeatingNeed:IDictNumeric = {};
+export interface ResultData {
+    specificHeatingNeed:IDictNumeric;
 }

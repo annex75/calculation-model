@@ -1,0 +1,61 @@
+{
+    "project": "test",
+    "buildings": [
+        {
+            "id": "building 1",
+            "gfa": 500
+        },{
+            "id": "building 2",
+            "gfa": 1000
+        }
+    ],
+    "renovationPackages": [
+        {
+            "id": "Reference package",
+            "specificHeatingNeed": 15.8,
+            "specificCost": 9.81,
+            "specificEmbodiedEnergy": 7.21,
+            "specificEmbodiedEmissions": 1.8
+        },{
+            "id": "Low ambition package",
+            "specificHeatingNeed": 12.3,
+            "specificCost": 14.2,
+            "specificEmbodiedEnergy": 10.53,
+            "specificEmbodiedEmissions": 2.63
+        },{
+            "id": "High ambition package",
+            "specificHeatingNeed": 10.6,
+            "specificCost": 20.3,
+            "specificEmbodiedEnergy": 14.42,
+            "specificEmbodiedEmissions": 3.61
+        }
+    ],
+    "energySystems": [
+        {
+            "id": "Lake water source heat pump (district)",
+            "category": "District",
+            "key": "lwshp_district",
+            "lifeLength": 25,
+            "energyCarrier": "Electricity mix"
+        }
+    ],
+    "energyCarriers": [
+        {
+            "id": "Electricity mix",
+            "emissionFactor": 0.256,
+            "primaryEnergyFactor": 1
+        }
+    ],
+    "scenarios": [
+        {
+            "id": "Scenario A",
+            "renovationPackage": "Reference package",
+            "energySystem": "Lake water source heat pump (district)"
+        },
+        {
+            "id": "Scenario B",
+            "renovationPackage": "Low ambition package",
+            "energySystem": "Lake water source heat pump (district)"
+        }
+    ]
+}

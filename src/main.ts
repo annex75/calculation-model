@@ -10,7 +10,7 @@ import {
 
 // import auxiliary functions
 import {
-    _parseFile,
+    parseFile,
     _test
 } from './auxiliaryFunctions';
 
@@ -23,7 +23,7 @@ const argv = minimist(process.argv.slice(1));
 main(argv);
 
 function main(argv: IArguments) {
-    let jsonData = _parseFile(argv.file);
+    let jsonData = parseFile(argv.file);
     // convert json data to the calcdata format we control
     const calcData = new CalcData(jsonData);
     const resData = performCalculations(calcData);
