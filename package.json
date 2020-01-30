@@ -1,8 +1,12 @@
 {
-  "name": "annex-75-calculation-tool",
+  "name": "@annex-75/calculation-model",
   "version": "0.2.1",
   "description": "todo: description",
-  "main": "main.js",
+  "files": [
+    "build"
+  ],
+  "main": "build/main.js",
+  "types": "build/main.d.ts",
   "dependencies": {
     "@types/lodash": "^4.14.149",
     "@types/ramda": "^0.26.36",
@@ -21,7 +25,10 @@
     "typescript": "^3.6.4"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test"
   },
   "repository": {
     "type": "git",

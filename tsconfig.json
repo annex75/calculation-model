@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
-        "target": "es6",
+        "declaration": true,
+        "target": "es5",
         "module": "commonjs",
         "sourceMap": true,
         "outDir": "build",
@@ -11,7 +12,7 @@
             "ramda": [
                 "node_modules/@types/ramda/index"
             ]
-            }
+        }
     },
     "include": [
         "src/auxiliaryFunctions.ts",
