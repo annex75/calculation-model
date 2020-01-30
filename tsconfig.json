@@ -18,7 +18,8 @@
         "src/auxiliaryFunctions.ts",
         "src/classes.ts",
         "src/calculations.ts",
-        "src/main.ts"
+        "src/main.ts",
+        "index.ts"
     ],
     "exclude": ["node_modules","**/*.spec.ts"],
     "lib": ["es2017"]
